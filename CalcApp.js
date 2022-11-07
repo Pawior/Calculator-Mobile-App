@@ -12,7 +12,7 @@ let sLCol = ["2", "5", "8", "0"];
 let tLCol = ["3", "6", "9", "="];
 let nLCol = ["Sqrt", "Pow", "Sin", "Cos"];
 let lLCol = ["Del", "C", "/", "*", "-", "+"];
-
+// "*", "-", "+"
 const CalcApp = () => {
   const [inputedNums, setInputedNums] = useState([]);
   const [result, setResult] = useState();
@@ -38,15 +38,52 @@ const CalcApp = () => {
     setInputedNums([]);
     setResult();
   };
+  const removeLast = () => {
+    setInputedNums(inputedNums.slice(0, -1));
+    if (inputedNums.length <= 1) {
+      setResult();
+    }
+  };
+  const powIt = () => {
+    setResult(Math.pow(eval(inputedNums.join("")), 2));
+  };
+  const sqrtIt = () => {
+    setResult(Math.sqrt(eval(inputedNums.join("")), 2));
+  };
+  const sinIt = () => {
+    setResult(Math.sin(eval(inputedNums.join("")), 2));
+  };
+  const cosIt = () => {
+    setResult(Math.cos(eval(inputedNums.join("")), 2));
+  };
+
   const updateCalcsBoard = (numb) => {
     console.log("dodaje numa");
-    if (numb != "C" && numb != "=") {
+    if (
+      numb != "C" &&
+      numb != "=" &&
+      numb != "Del" &&
+      numb != "Sqrt" &&
+      numb != "Pow" &&
+      numb != "Sin" &&
+      numb != "Cos"
+    ) {
       // console.log("test");
       setInputedNums([...inputedNums, numb]);
     } else if (numb == "=") {
       makeCalculation();
     } else if (numb == "C") {
+      removeLast();
+    } else if (numb == "Del") {
       clearCalculation();
+    } else if (numb == "Pow") {
+      powIt();
+    } else if (numb == "Sqrt") {
+      sqrtIt();
+    } else if (numb == "Sin") {
+      sinIt();
+    } else if (numb == "Cos") {
+      cosIt();
     }
   };
 
@@ -66,7 +103,11 @@ const CalcApp = () => {
           {/* <Text>T</Text> */}
           {fCol.map((item) => {
             return (
-              <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
             );
           })}
         </View>
@@ -75,7 +116,11 @@ const CalcApp = () => {
 
           {sCol.map((item) => {
             return (
-              <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
             );
           })}
         </View>
@@ -83,7 +128,11 @@ const CalcApp = () => {
           {/* <Text>T</Text> */}
           {tCol.map((item) => {
             return (
-              <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
             );
           })}
         </View>
@@ -91,7 +140,11 @@ const CalcApp = () => {
           {/* <Text>T</Text> */}
           {lCol.map((item) => {
             return (
-              <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
             );
           })}
         </View>
@@ -109,91 +162,97 @@ const CalcApp = () => {
       </View>
       <View style={lStyles.btnsBoard}>
         <View style={lStyles.btnsColumnContainer}>
-          {fCol.map((item) => {
+          {fLCol.map((item) => {
             return (
-              <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
+            );
+          })}
+        </View>
+        <View style={lStyles.btnsColumnContainer}>
+          {sLCol.map((item) => {
+            return (
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
+            );
+          })}
+        </View>
+        <View style={lStyles.btnsColumnContainer}>
+          {tLCol.map((item) => {
+            return (
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
+            );
+          })}
+        </View>
+        <View style={lStyles.newBtnsColumnContainer}>
+          {nLCol.map((item) => {
+            return (
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
+            );
+          })}
+        </View>
+        <View style={lStyles.specialBtnsColumnContainer}>
+          {lLCol.map((item) => {
+            return (
+              <NumberComp
+                text={item}
+                updateCalcsBoard={updateCalcsBoard}
+                orientation={orientation}
+              />
             );
           })}
         </View>
       </View>
     </View>
   );
-
-  // if (orientation) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <View style={styles.mathBoard}>
-  //         {/* <Text> dsd</Text> */}
-  //         <View style={styles.calculationsBoard}>
-  //           <Text style={styles.calcsBoardInput}> {inputedNums}</Text>
-  //         </View>
-  //         <View style={styles.resultBoard}>
-  //           <Text style={styles.calcsBoardInput}> {result}</Text>
-  //         </View>
-  //       </View>
-  //       <View style={styles.btnsBoard}>
-  //         <View style={styles.btnsColumnContainer}>
-  //           {/* <Text>T</Text> */}
-  //           {fCol.map((item) => {
-  //             return (
-  //               <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
-  //             );
-  //           })}
-  //         </View>
-  //         <View style={styles.btnsColumnContainer}>
-  //           {/* <Text>T</Text> */}
-
-  //           {sCol.map((item) => {
-  //             return (
-  //               <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
-  //             );
-  //           })}
-  //         </View>
-  //         <View style={styles.btnsColumnContainer}>
-  //           {/* <Text>T</Text> */}
-  //           {tCol.map((item) => {
-  //             return (
-  //               <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
-  //             );
-  //           })}
-  //         </View>
-  //         <View style={styles.specialBtnsColumnContainer}>
-  //           {/* <Text>T</Text> */}
-  //           {lCol.map((item) => {
-  //             return (
-  //               <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
-  //             );
-  //           })}
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // } else {
-  //   return (
-  //     <View style={lStyles.container}>
-  //       <View style={lStyles.mathBoard}>
-  //         <View style={styles.calculationsBoard}>
-  //           <Text style={styles.calcsBoardInput}> {inputedNums}</Text>
-  //         </View>
-  //         <View style={styles.resultBoard}>
-  //           <Text style={styles.calcsBoardInput}> {result}</Text>
-  //         </View>
-  //       </View>
-  //       <View style={lStyles.btnsBoard}>
-  //         <View style={styles.btnsColumnContainer}>
-  //           <Text>T</Text>
-  //           {fCol.map((item) => {
-  //             return (
-  //               <NumberComp text={item} updateCalcsBoard={updateCalcsBoard} />
-  //             );
-  //           })}
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // }
 };
 
+const lStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffff00",
+  },
+  mathBoard: {
+    flex: 4,
+    flexDirection: "column",
+    backgroundColor: "#00fff0",
+  },
+  btnsBoard: {
+    flex: 7,
+    flexDirection: "row",
+    backgroundColor: "#666",
+  },
+  btnsColumnContainer: {
+    flex: 1,
+  },
+  newBtnsColumnContainer: {
+    flex: 1,
+    backgroundColor: "#bbb",
+  },
+
+  specialBtnsColumnContainer: {
+    flex: 1,
+    // padding: 30,
+    // paddingTop: 25,
+    backgroundColor: "#282b36",
+    // justifyContent: "center",
+    // alignItems: "center",
+  },
+});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -242,26 +301,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
     paddingRight: 10,
-  },
-});
-
-const lStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffff00",
-  },
-  mathBoard: {
-    flex: 4,
-    flexDirection: "column",
-    backgroundColor: "#00fff0",
-  },
-  btnsBoard: {
-    flex: 7,
-    flexDirection: "row",
-    backgroundColor: "#666",
-  },
-  btnsColumnContainer: {
-    flex: 1,
   },
 });
 

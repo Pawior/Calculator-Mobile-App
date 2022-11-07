@@ -7,18 +7,18 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-const NumberComp = ({ text, updateCalcsBoard }) => {
-  const [orientation, setOrientation] = useState(true);
+const NumberComp = ({ text, updateCalcsBoard, orientation }) => {
+  // const [orientation, setOrientation] = useState(true);
 
-  const isPortrait = () => {
-    let dim = Dimensions.get("screen");
-    console.log("robie i zwaracam " + dim);
-    return dim.height >= dim.width;
-  };
+  // const isPortrait = () => {
+  //   let dim = Dimensions.get("screen");
+  //   console.log("robie i zwaracam " + dim);
+  //   return dim.height >= dim.width;
+  // };
 
-  Dimensions.addEventListener("change", () => {
-    setOrientation(isPortrait());
-  });
+  // Dimensions.addEventListener("change", () => {
+  //   setOrientation(isPortrait());
+  // });
 
   const handleClick = () => {
     updateCalcsBoard(text);
@@ -39,8 +39,8 @@ const NumberComp = ({ text, updateCalcsBoard }) => {
     </TouchableOpacity>
   ) : (
     <TouchableOpacity onPress={handleClick} style={styles.touchStyle}>
-      <View style={lStyles.buttonContainer}>
-        <Text style={styles.text}>{text}</Text>
+      <View style={lStyles.buttonLayout}>
+        <Text style={lStyles.text}>{text}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -63,14 +63,15 @@ const styles = StyleSheet.create({
 });
 
 const lStyles = StyleSheet.create({
-  buttonContainer: {
+  buttonLayout: {
     flex: 1,
     alignItems: "center",
-    // padding: 20,
+    // borderWidth: 1,
+    padding: 1,
     // paddingTop: 30,
   },
   text: {
-    fontSize: 42,
+    fontSize: 28,
     color: "#eee",
   },
   touchStyle: {
