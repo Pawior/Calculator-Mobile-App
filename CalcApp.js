@@ -56,6 +56,20 @@ const CalcApp = () => {
   const cosIt = () => {
     setResult(Math.cos(eval(inputedNums.join("")), 2));
   };
+  const checkIfSignIsDoubled = (numb) => {
+    if (numb == "+" || numb == "-" || numb == "/" || numb == "*") {
+      let lastChar = inputedNums[inputedNums.length - 1];
+      if (
+        lastChar == "+" ||
+        lastChar == "-" ||
+        lastChar == "/" ||
+        lastChar == "*"
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   const updateCalcsBoard = (numb) => {
     console.log("dodaje numa");
@@ -69,7 +83,10 @@ const CalcApp = () => {
       numb != "Cos"
     ) {
       // console.log("test");
-      setInputedNums([...inputedNums, numb]);
+
+      if (checkIfSignIsDoubled(numb)) {
+        setInputedNums([...inputedNums, numb]);
+      } else setInputedNums([...inputedNums.slice(0, -1), numb]);
     } else if (numb == "=") {
       makeCalculation();
     } else if (numb == "C") {
